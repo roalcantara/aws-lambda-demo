@@ -45,6 +45,21 @@ git clone https://github.com/roalcantara/aws-lambda-demo
   - Deploy Lambda functions
   - Deploy API Gateway REST APIs automatically created based on the Lambda function's Event mapping.
 
+### IMPROVEMENTS & BEST PRACTICES
+
+This implementation includes several production-ready improvements beyond the basic tutorial:
+
+- **✅ Proper Error Handling**: Returns proper HTTP error responses (500, 503) instead of raising exceptions
+- **✅ Structured Logging**: Uses Python's `logging` module for better CloudWatch log analysis
+- **✅ CORS Support**: Includes CORS headers for browser-based testing and frontend integration
+- **✅ Type Hints**: Full Python type annotations for better IDE support and code clarity
+- **✅ Environment Variables**: Configurable external service URL via `CHECKIP_URL` environment variable
+- **✅ Resource Configuration**: Explicit timeout (10s) and memory (256MB) settings for optimal performance
+- **✅ No Unused Dependencies**: Uses only Python standard library, reducing package size and security surface
+- **✅ Comprehensive Documentation**: Enhanced docstrings with examples and error scenarios
+
+> **Educational Note**: These improvements demonstrate production-ready patterns while maintaining simplicity for learning purposes.
+
 ### STRUCTURE
 
   ```tree
@@ -114,7 +129,7 @@ You can find your API Gateway endpoint URL in the output values displayed after 
 ### 2. TESTING and INVOKING LOCALLY
 
 - The AWS SAM CLI:
-  - Installs dependencies defined in `hello_world/package.json`
+  - Installs dependencies defined in `hello_world/requirements.txt` (Python) or `package.json` (Node.js)
   - Creates a deployment package
   - Saves it in the `.aws-sam/build` folder.
 - You can test a single function by invoking it directly with a test event.
@@ -143,6 +158,7 @@ You can find your API Gateway endpoint URL in the output values displayed after 
             Properties:
               Path: /hello
               Method: get
+   ```
 
 2. When you want to serve the API locally on port 3000, run:
 
@@ -164,6 +180,13 @@ You can find your API Gateway endpoint URL in the output values displayed after 
   ```bash
   curl http://localhost:3000/hello
   ```
+
+> **Note**: The API now includes CORS headers, so you can also test it from a browser console:
+> ```javascript
+> fetch('http://localhost:3000/hello')
+>   .then(r => r.json())
+>   .then(console.log)
+> ```
 
 ### 4. DEPLOYING to REMOTE
 
@@ -204,6 +227,22 @@ You can find your API Gateway endpoint URL in the output values displayed after 
 - Alternatively, go to the API Gateway endpoint URL outputed after the app deployment
   Which will similarly invoke your deployed Lambda function.
 
+> **Note**: The API includes CORS headers, so you can call it directly from a browser or frontend application.
+
+### 5.1. CONFIGURATION
+
+The Lambda function supports environment variables for configuration:
+
+- **CHECKIP_URL**: Override the default IP checking service URL (default: `http://checkip.amazonaws.com/`)
+
+To set environment variables, modify `template.yaml`:
+
+```yaml
+Environment:
+  Variables:
+    CHECKIP_URL: "http://your-custom-service.com/"
+```
+
 ### 6. FETCH, TAIL, AND FILTERING [LOGS][17]
 
 > 💡 Fetch logs several nifty features of Lambda functions from the command line
@@ -216,6 +255,10 @@ You can find your API Gateway endpoint URL in the output values displayed after 
   ```
 
 > `NOTE`: This command works for all AWS Lambda functions; not just the ones you deploy using AWS SAM.
+
+> **Logging**: The function uses Python's `logging` module with INFO level. You'll see structured log messages in CloudWatch:
+> - `INFO`: Successful operations (fetching IP, handling requests)
+> - `ERROR`: Network errors and unexpected exceptions (with full stack traces)
 
 ### 7. CLEANUP
 
