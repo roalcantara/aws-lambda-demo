@@ -1,0 +1,301 @@
+# EditorConfig is awesome: http://EditorConfig.org
+# https://github.com/jokeyrhyme/standard-editorconfig
+# https://github.com/editorconfig/editorconfig/issues/465
+
+# top-most EditorConfig file
+root = true
+
+# defaults
+[*]
+charset = utf-8
+end_of_line = lf
+indent_size = 2
+indent_style = space
+quote_type = single
+insert_final_newline = true
+trim_trailing_whitespace = true
+
+# Bazel: https://bazel.build/
+# https://github.com/bazelbuild/buildtools/blob/master/BUILD.bazel
+[*.{bazel,bzl}]
+indent_size = 4
+indent_style = space
+
+# CSS
+# https://google.github.io/styleguide/htmlcssguide.xml#General_Formatting_Rules
+# http://cssguidelin.es/#syntax-and-formatting
+[*.css]
+indent_size = 2
+indent_style = space
+trim_trailing_whitespace = true
+
+# GNU make
+# https://www.gnu.org/software/make/manual/html_node/Recipe-Syntax.html
+[Makefile]
+indent_size = 4
+indent_style = tab
+
+# Go
+# https://golang.org/cmd/gofmt/
+[{go.mod,*.go}]
+indent_size = 2
+indent_style = tab
+
+# GraphQL
+# https://graphql.org/learn/
+# https://prettier.io
+[*.graphql]
+indent_size = 2
+indent_style = space
+
+# HTML
+# https://google.github.io/styleguide/htmlcssguide.xml#General_Formatting_Rules
+[*.{htm,html}]
+indent_size = 2
+indent_style = space
+trim_trailing_whitespace = true
+
+# Java
+# https://google.github.io/styleguide/javaguide.html#s4.2-block-indentation
+[*.java]
+indent_size = 2
+indent_style = space
+
+# JavaScript, JSON, JSX, JavaScript Modules, TypeScript
+# https://github.com/feross/standard
+# https://prettier.io
+[*.{cjs,js,json,jsx,mjs,ts,tsx}]
+indent_size = 2
+indent_style = space
+
+# Kotlin
+# https://android.github.io/kotlin-guides/style.html#indentation
+[*.{kt,kts}]
+indent_size = 4
+indent_style = space
+
+# LESS
+# https://github.com/less/less-docs#less-standards
+[*.less]
+indent_size = 2
+indent_style = space
+
+# Lua
+# http://lua-users.org/wiki/LuaStyleGuide
+# https://github.com/CppCXY/EmmyLuaCodeStyle/blob/master/lua.template.editorconfig
+[*.lua]
+# optional space/tab
+indent_style = space
+# if indent_style is space, this is valid
+indent_size = 2
+# if indent_style is tab, this is valid
+tab_width = 2
+# none/single/double
+quote_style = 'single'
+
+continuation_indent = 2
+## extend option
+# continuation_indent.before_block = 4
+# continuation_indent.in_expr = 4
+# continuation_indent.in_table = 4
+
+# this mean utf8 length , if this is 'unset' then the line width is no longer checked
+# this option decides when to chopdown the code
+max_line_length = 120
+
+# optional crlf/lf/cr/auto, if it is 'auto', in windows it is crlf other platforms are lf
+# in neovim the value 'auto' is not a valid option, please use 'unset'
+end_of_line = lf
+
+#  none/ comma / semicolon / only_kv_colon
+table_separator_style = none
+
+#optional keep/never/always/smart
+trailing_table_separator = keep
+
+# keep/remove/remove_table_only/remove_string_only
+call_arg_parentheses = keep
+detect_end_of_line = false
+
+# this will check text end with new line
+insert_final_newline = true
+
+# [space]
+space_around_table_field_list = true
+space_before_attribute = true
+space_before_function_open_parenthesis = false
+space_before_function_call_open_parenthesis = false
+space_before_closure_open_parenthesis = false
+
+# optional always/only_string/only_table/none
+# or true/false
+space_before_function_call_single_arg = always
+## extend option
+## always/keep/none
+# space_before_function_call_single_arg.table = always
+## always/keep/none
+# space_before_function_call_single_arg.string = always
+
+space_before_open_square_bracket = false
+space_inside_function_call_parentheses = false
+space_inside_function_param_list_parentheses = false
+space_inside_square_brackets = false
+
+# like t[#t+1] = 1
+space_around_table_append_operator = false
+ignore_spaces_inside_function_call = false
+
+# detail number or 'keep'
+space_before_inline_comment = 1
+
+# convert '---' to '--- ' or '--' to '-- '
+space_after_comment_dash = true
+
+# [operator space]
+space_around_math_operator = true
+# space_around_math_operator.exponent = false
+
+space_after_comma = true
+space_after_comma_in_for_statement = true
+
+# true/false or none/always/no_space_asym
+space_around_concat_operator = true
+space_around_logical_operator = true
+
+# true/false or none/always/no_space_asym
+space_around_assign_operator = true
+
+# [align]
+align_call_args = false
+align_function_params = true
+
+# true/false or always
+align_continuous_assign_statement = true
+align_continuous_rect_table_field = true
+align_continuous_line_space = 2
+align_if_branch = false
+
+# option none / always / contain_curly/
+align_array_table = true
+align_continuous_similar_call_args = false
+align_continuous_inline_comment = true
+# option none / always / only_call_stmt
+align_chain_expr = none
+
+# [indent]
+never_indent_before_if_condition = false
+never_indent_comment_on_if_branch = false
+keep_indents_on_empty_lines = false
+allow_non_indented_comments = false
+# [line space]
+
+# The following configuration supports four expressions
+# keep
+# fixed(n)
+# min(n)
+# max(n)
+# for eg. min(2)
+
+line_space_after_if_statement = keep
+line_space_after_do_statement = keep
+line_space_after_while_statement = keep
+line_space_after_repeat_statement = keep
+line_space_after_for_statement = keep
+line_space_after_local_or_assign_statement = keep
+line_space_after_function_statement = fixed(2)
+line_space_after_expression_statement = keep
+line_space_after_comment = keep
+line_space_around_block = fixed(1)
+# [line break]
+break_all_list_when_line_exceed = false
+auto_collapse_lines = false
+break_before_braces = false
+
+# [preference]
+ignore_space_after_colon = false
+remove_call_expression_list_finish_comma = false
+# keep / always / same_line / replace_with_newline / never
+end_statement_with_semicolon = keep
+
+# PHP
+# http://www.php-fig.org/psr/psr-2/
+[*.php]
+indent_size = 4
+indent_style = space
+
+# Python
+# https://www.python.org/dev/peps/pep-0008/#code-lay-out
+[*.py]
+indent_size = 4
+indent_style = space
+
+# Ruby
+# http://www.caliban.org/ruby/rubyguide.shtml#indentation
+[*.rb]
+indent_size = 2
+indent_style = space
+
+# Rust
+# https://github.com/rust-lang/rust/blob/master/src/doc/style/style/whitespace.md
+[*.rs]
+indent_size = 4
+indent_style = space
+insert_final_newline = false
+trim_trailing_whitespace = true
+
+# SASS
+# https://sass-guidelin.es/#syntax--formatting
+[*.{sass,scss}]
+indent_size = 2
+indent_style = space
+
+# Shell
+# shfmt | https://github.com/mvdan/sh
+# Shell Style Guide | https://google.github.io/styleguide/shell.xml#Indentation
+[*.{bash,sh,zsh}]
+indent_size = 2
+indent_style = space
+shell_variant             = auto       # --language-dialect
+switch_case_indent        = true       # --case-indent
+function_next_line        = true       # function opening braces are placed on a separate line
+binary_next_line          = true       # binary ops like && and | may start a line
+space_redirects           = true       # redirect operators will be followed by a space
+keep_padding              = true       # keep column alignment paddings
+
+# Svelte
+# https://github.com/sveltejs/svelte/blob/master/.editorconfig
+[*.svelte]
+indent_size = 2
+indent_style = tab
+
+# TOML
+# https://github.com/toml-lang/toml/tree/master/examples
+[*.toml]
+indent_size = 2
+indent_style = space
+
+# Vue.js
+# https://eslint.vuejs.org/rules/html-indent.html
+# https://eslint.vuejs.org/rules/script-indent.html
+[*.vue]
+indent_size = 2
+indent_style = space
+
+# YAML
+# http://yaml.org/spec/1.2/2009-07-21/spec.html#id2576668
+[*.{yaml,yml}]
+indent_size = 2
+indent_style = space
+
+# MARKDOWN
+[*.md]
+indent_size = 4
+indent_style = space
+max_line_length = off
+trim_trailing_whitespace = false
+
+# Ignore the entire "third_party" directory.
+[third_party/**]
+ignore = true
+
+# vi: set ft=editorconfig:

@@ -1,0 +1,5 @@
+[tools]
+aws-cli = "2.31.38"
+aws-sam = "1.146.0"
+node = "lts"
+python = "3.12"
