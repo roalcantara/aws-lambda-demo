@@ -7,7 +7,12 @@ Description: |
 # More info about Globals: https://github.com/awslabs/serverless-application-model/blob/master/docs/globals.rst
 Globals:
   Function:
-    Timeout: 3
+    # Increased timeout to accommodate external HTTP calls with network latency
+    # External service calls may take longer than 3 seconds
+    Timeout: 10
+    # Explicit memory allocation (affects CPU allocation proportionally)
+    # 256 MB provides adequate resources for this simple function
+    MemorySize: 256
 
 Resources:
   HelloWorldFunction:
@@ -17,13 +22,25 @@ Resources:
       Handler: app.lambda_handler
       Runtime: python3.12
       Architectures:
-        - arm64
+        - arm64  # Using ARM64 for cost efficiency (up to 20% cheaper than x86_64)
+      # Environment variables for configuration
+      # Allows easy testing with mock services or different endpoints
+      Environment:
+        Variables:
+          # Optional: Override the default checkip service URL
+          # Example: CHECKIP_URL: "http://checkip.amazonaws.com/"
+          # Leave unset to use default in code
       Events:
         HelloWorld:
           Type: Api # More info about API Event Source: https://github.com/awslabs/serverless-application-model/blob/master/versions/2016-10-31.md#api
           Properties:
             Path: /hello
             Method: get
+            # Add OPTIONS method for CORS preflight support
+            Cors:
+              AllowMethods: "'GET,OPTIONS'"
+              AllowHeaders: "'Content-Type'"
+              AllowOrigin: "'*'"  # In production, specify your frontend domain
 
 Outputs:
   # ServerlessRestApi is an implicit API created out of Events key under Serverless::Function
